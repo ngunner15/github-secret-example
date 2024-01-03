@@ -21,10 +21,10 @@ jobs:
       - name: Set env variable to secret
         env:
           SUPER_SECRET: ${{ secrets.GH_SECRET }}
-        run: echo "Assigned secret to env variable"
+        run: echo "Assigned secret to env variable $SUPER_SECRET"
 
-      - name: Add Mask
-        run: echo "::add-mask::$SUPER_SECRET"
+      # - name: Add Mask
+      #   run: echo "::add-mask::$SUPER_SECRET"
 
       - name: Fetch Number
         id: fetch
