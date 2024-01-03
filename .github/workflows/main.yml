@@ -22,8 +22,6 @@ jobs:
         shell: bash
         env:
           SUPER_SECRET: ${{ secrets.GH_SECRET }}
-        run: |
-          example-command "$SUPER_SECRET"
 
       - name: Add Mask
         run: echo "::add-mask::$SUPER_SECRET"
