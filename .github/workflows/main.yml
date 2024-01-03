@@ -26,7 +26,7 @@ jobs:
           example-command "$SUPER_SECRET"
 
       - name: Add Mask
-        run: echo "::add-mask::${{ SUPER_SECRET }}"
+        run: echo "::add-mask::$SUPER_SECRET"
 
       - name: Fetch Number
         id: fetch
