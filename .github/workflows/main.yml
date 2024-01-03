@@ -16,21 +16,21 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '14'
+          node-version: '16'
 
-      - name: Install dependencies
-        run: npm install
+      - name: Add Mask
+        run: echo "::add-mask::${{ secrets.GH_SECRET }}"
 
       - name: Fetch Number
         id: fetch
-        run: |
-          echo "::set-output name=myNumber::$(node numbers.js)"
-          echo "::add-mask::${{ steps.fetch.outputs.myNumber }}"
+        run: echo "myNumber=$(node numbers.js)" >> $GITHUB_OUTPUT
         shell: bash
 
       - name: Set GitHub Secret
-        run: echo "MY_NUMBER=${{ steps.fetch.outputs.myNumber }}" >> $GITHUB_ENV
+        run: echo "MY_NUMBER=${{ steps.fetch.outputs.myNumber }}" >> ${{ secrets.GH_SECRET }}
 
-      - name: Use Number
-        run: echo "Number is $MY_NUMBER"
+      - name: Check length of the Secret
+        run: |
+          GH_SECRET="${{ secrets.GH_SECRET }}"
+          echo "GH_SECRET length: ${#GH_SECRET}"
         
