@@ -21,6 +21,7 @@ jobs:
       - name: Set env variable to secret
         env:
           SUPER_SECRET: ${{ secrets.GH_SECRET }}
+        run: echo "Assigned secret to env variable"
 
       - name: Add Mask
         run: echo "::add-mask::$SUPER_SECRET"
