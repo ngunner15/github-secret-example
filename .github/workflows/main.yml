@@ -1,0 +1,36 @@
+name: Fetch Number Example
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  fetch-number:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '14'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Fetch Number
+        id: fetch
+        run: |
+          echo "::set-output name=myNumber::$(node numbers.js)"
+          echo "::add-mask::${{ steps.fetch.outputs.myNumber }}"
+        shell: bash
+
+      - name: Set GitHub Secret
+        run: echo "MY_NUMBER=${{ steps.fetch.outputs.myNumber }}" >> $GITHUB_ENV
+
+      - name: Use Number
+        run: echo "Number is $MY_NUMBER"
+        
