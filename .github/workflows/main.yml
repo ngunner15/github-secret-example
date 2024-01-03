@@ -3,7 +3,7 @@ name: Fetch Number Example
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   fetch-number:
