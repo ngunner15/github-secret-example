@@ -18,23 +18,23 @@ jobs:
         with:
           node-version: '16'
 
-      - name: Add Mask
-        run: echo "::add-mask::${{ secrets.GH_SECRET }}"
+      - name: Set env variable to secret
+        shell: bash
+        env:
+          SUPER_SECRET: ${{ secrets.GH_SECRET }}
+        run: |
+          example-command "$SUPER_SECRET"
 
+      - name: Add Mask
+        run: echo "::add-mask::${{ SUPER_SECRET }}"
 
       - name: Fetch Number
         id: fetch
         run: echo "myNumber=$(node numbers.js)" >> $GITHUB_OUTPUT
         shell: bash
 
-      - name: Create or update Github Actions secret
-        uses: ekowcharles/update-github-actions-secret@v1
-        env:
-          OWNER: ngunner15
-          REPOSITORY: github-secret-example
-          ACCESS_TOKEN: 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
-          SECRET_NAME: secrets.GH_SECRET
-          SECRET_VALUE: GITHUB_OUTPUT
+      - name: Set GitHub Secret
+        run: echo "MY_NUMBER=${{ steps.fetch.outputs.myNumber }}" >> $SUPER_SECRET
 
       - name: Check length of the Secret
         run: |
