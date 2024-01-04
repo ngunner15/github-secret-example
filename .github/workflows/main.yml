@@ -19,7 +19,7 @@ jobs:
           node-version: '18'
 
       - name: Add Mask
-        run: echo "::add-mask::${{ secrets.GH_SECRET }}
+        run: echo "::add-mask::${{ secrets.GH_SECRET }}"
 
       - name: Fetch Number
         id: fetch
