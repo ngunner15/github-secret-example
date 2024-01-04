@@ -27,8 +27,10 @@ jobs:
         shell: bash
 
       - name: Set GitHub Secret
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          response=$(curl -L -H "Accept: application/vnd.github+json" -H "Authorization: Bearer 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" -H "X-GitHub-Api-Version: 2022-11-28" https://api.github.com/orgs/ORG/actions/secrets/public-key)
+          response=$(curl -L -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${{ secrets.GH_PAT }}" -H "X-GitHub-Api-Version: 2022-11-28" https://api.github.com/orgs/ORG/actions/secrets/public-key)
           echo "Response: $response"
 
       # - name: Check length of the Secret
