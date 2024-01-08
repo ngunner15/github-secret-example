@@ -19,13 +19,10 @@ jobs:
         with:
           node-version: '18'
 
-      - name: Set up secret
+      - name: Set up PAT token
         env:
           PAT_TOKEN: ${{ secrets.GH_PAT }}
         run: echo $PAT_TOKEN
-
-      - name: Add Mask
-        run: echo "::add-mask::${{ secrets.GH_SECRET }}"
 
       - name: Fetch Number
         id: fetch
@@ -36,9 +33,4 @@ jobs:
         run: |
           response=$(curl -L -H "Accept: application/vnd.github+json" -H "Authorization: Bearer $PAT_TOKEN" -H "X-GitHub-Api-Version: 2022-11-28" https://api.github.com/orgs/ORG/actions/secrets/public-key)
           echo "Response: $response"
-
-      # - name: Check length of the Secret
-      #   run: |
-      #     GH_SECRET="${{ secrets.GH_SECRET }}"
-      #     echo "GH_SECRET length: ${#GH_SECRET}"
         
